@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "root": "Root",
+    "about": "About",
+    "projects": "Projects",
+    "fun": "Fun",
+    "contact": "Contact",
+    "language": "Switch language"
+  },
+  "pageTitle": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "fun": "Fun",
+    "contact": "Contact"
+  },
+  "index": {
+    "greeting": "Hi, I'm Ching 👋",
+    "role1": "Frontend developer",
+    "roleConnector": "who also thinks in ",
+    "role2": "marketing",
+    "roleEnd": ".",
+    "viewerCount": "{{count}} people viewing",
+    "stickyDoodle": "A little tool I made!"
+  },
+  "ghost": {
+    "recruiter": "recruiter",
+    "visitor": "visitor"
+  },
+  "about": {
+    "heading": "About me",
+    "downloadCV": "Download CV",
+    "toolsHeading": "Tools & Technologies I use",
+    "experienceHeading": "Experience",
+    "educationHeading": "Education"
+  },
+  "projects": {
+    "heading": "Projects",
+    "subtitle": "The organized list — the home page also has a sticky-note wall you can drag around. Click a tech tag to filter.",
+    "filtering": "Filtering: {{tag}} ✕",
+    "internalNote": "*Internal system, can't be shown publicly — screenshot for illustration only",
+    "liveDemo": "Demo",
+    "viewCode": "Code",
+    "social": "Social",
+    "spotlightHeading": "Featured"
+  },
+  "fun": {
+    "heading": "Fun",
+    "subtitle": "Outside of work, I also enjoy these",
+    "photoComingSoon": "Photos coming soon",
+    "close": "Close"
+  },
+  "contact": {
+    "heading": "Contact",
+    "contactMe": "Contact Me",
+    "socials": "Socials",
+    "messageHeading": "📌 Leave me a sticky note",
+    "messageSuccess": "Got your sticky note, thanks for the message! I'll get back to you :)",
+    "emailPlaceholder": "Your email (so I can reply)",
+    "messagePlaceholder": "What's on your mind?",
+    "submitting": "Sending…",
+    "submit": "Pin it",
+    "submitError": "Failed to send — feel free to email me directly: cching01099@gmail.com"
+  }
+}

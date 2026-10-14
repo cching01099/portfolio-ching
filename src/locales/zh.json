@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "root": "首頁",
+    "about": "關於我",
+    "projects": "作品",
+    "fun": "Fun",
+    "contact": "聯絡",
+    "language": "切換語言"
+  },
+  "pageTitle": {
+    "home": "首頁",
+    "about": "關於我",
+    "projects": "作品",
+    "fun": "Fun",
+    "contact": "聯絡"
+  },
+  "index": {
+    "greeting": "Hi, I'm Ching 👋",
+    "role1": "Frontend developer",
+    "roleConnector": "who also thinks in ",
+    "role2": "marketing",
+    "roleEnd": ".",
+    "viewerCount": "{{count}} 人正在瀏覽",
+    "stickyDoodle": "這是我做的一個小工具！"
+  },
+  "ghost": {
+    "recruiter": "HR",
+    "visitor": "訪客"
+  },
+  "about": {
+    "heading": "About me",
+    "downloadCV": "下載CV",
+    "toolsHeading": "常用工具與技術",
+    "experienceHeading": "工作經歷",
+    "educationHeading": "學歷"
+  },
+  "projects": {
+    "heading": "作品集",
+    "subtitle": "整理版列表，首頁還有便利貼版可以拖拉玩玩看。點技術標籤可以篩選作品。",
+    "filtering": "篩選中：{{tag}} ✕",
+    "internalNote": "*內部系統，無法公開展示，僅以畫面示意",
+    "liveDemo": "Demo",
+    "viewCode": "Code",
+    "social": "社群迴響",
+    "spotlightHeading": "精選作品"
+  },
+  "fun": {
+    "heading": "Fun",
+    "subtitle": "工作之外，我還喜歡這些",
+    "photoComingSoon": "照片準備中",
+    "close": "關閉"
+  },
+  "contact": {
+    "heading": "Contact",
+    "contactMe": "聯絡我",
+    "socials": "社群平台",
+    "messageHeading": "📌 留一張便利貼給我",
+    "messageSuccess": "已經收到你的便利貼囉，謝謝留言！我會找時間回覆 :)",
+    "emailPlaceholder": "你的 Email（讓我能回覆你）",
+    "messagePlaceholder": "想跟我說什麼？",
+    "submitting": "送出中…",
+    "submit": "貼上便利貼",
+    "submitError": "送出失敗了，可以直接寫信給我：cching01099@gmail.com"
+  }
+}

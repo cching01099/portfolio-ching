@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio-dev",
+      "runtimeExecutable": "/Users/ching/.nvm/versions/node/v22.16.0/bin/node",
+      "runtimeArgs": ["/Users/ching/portfolio-ching/node_modules/.bin/vite"],
+      "port": 5173,
+      "autoPort": true
+    }
+  ]
+}

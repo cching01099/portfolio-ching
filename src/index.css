@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+/* 全站字體：英文用 Ubuntu，中文（Ubuntu 沒有的字）自動退到 Zen Kaku Gothic New */
+:root {
+  font-family: "Ubuntu", "Zen Kaku Gothic New", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- 換頁淡入：時長與曲線沿用 transitions.dev 的 page slide token，只淡入不位移 ---------- */
+/* 刻意不用 transform / filter，避免頁面裡的 fixed 元素（觀看人數、彈窗）在動畫期間被改變定位基準 */
+.page-fade {
+  animation: pageFadeIn 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-fade {
+    animation: none;
+  }
+}
+
+/* ---------- transitions.dev（.claude/skills/transitions-dev）----------
+   放在 components layer，讓 Tailwind utilities 仍可以覆寫尺寸、顏色等細節 */
+:root {
+  /* 06-modal */
+  --modal-open-dur: 250ms;
+  --modal-close-dur: 150ms;
+  --modal-scale: 0.96;
+  --modal-scale-close: 0.96;
+  --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 16-tabs-sliding（只用到滑動的 pill，tab 本身的配色變數沒用到所以沒放） */
+  --tabs-dur: 250ms;
+  --tabs-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 17-tooltip */
+  --tt-in-dur: 150ms;
+  --tt-out-dur: 50ms;
+  --tt-scale: 0.98;
+  --tt-delay: 80ms;
+  --tt-in-ease: ease-out;
+  --tt-out-ease: ease-out;
+  --tt-move-dur: 160ms;
+  --tt-move-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tt-bg: #ffffff;
+  --tt-fg: #2f2f2f;
+
+  /* 18-texts-reveal */
+  --stagger-dur: 500ms;
+  --stagger-distance: 12px;
+  --stagger-stagger: 40ms;
+  --stagger-blur: 3px;
+  --stagger-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer components {
+  /* 06-modal：Fun 頁興趣彈窗 */
+  .t-modal {
+    transform-origin: center;
+    transform: scale(var(--modal-scale));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform var(--modal-open-dur) var(--modal-ease),
+      opacity   var(--modal-open-dur) var(--modal-ease);
+    will-change: transform, opacity;
+  }
+  .t-modal.is-open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .t-modal.is-closing {
+    transform: scale(var(--modal-scale-close));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform var(--modal-close-dur) var(--modal-ease),
+      opacity   var(--modal-close-dur) var(--modal-ease);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-modal { transition: none !important; }
+  }
+
+  /* 16-tabs-sliding：Dock 目前頁面的小藍點（尺寸、位置、顏色在 Dock.jsx 用 Tailwind 覆寫） */
+  .t-tabs-pill {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 30px;
+    width: 0;
+    background: var(--tabs-pill-bg);
+    border-radius: 48px;
+    transform: translateX(0);
+    transition:
+      transform var(--tabs-dur) var(--tabs-ease),
+      width     var(--tabs-dur) var(--tabs-ease);
+    will-change: transform, width;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-tabs-pill, .t-tab { transition: none !important; }
+  }
+
+  /* 17-tooltip：Dock 與 About 技能圖示的共用提示框（圓角、字級、內距在 SharedTooltip.jsx 用 Tailwind 覆寫） */
+  .t-tt-group {
+    position: relative;
+    display: inline-flex;
+  }
+  .t-tt {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0;                 /* the JS writes the measured width */
+    overflow: hidden;
+    /* Individual transform properties: the travel (translate) and the
+       appear (scale) run on their own clocks. */
+    /* 原版只有 x；多加 --tt-y 讓會換行的群組也能對到觸發元素（useSharedTooltip 寫入） */
+    translate: var(--tt-x, 0px) var(--tt-y, 0px);
+    scale: var(--tt-scale);
+    transform-origin: 50% 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--tt-bg);
+    color: var(--tt-fg);
+    white-space: nowrap;
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.06),
+      0 2px 6px 0 rgba(0, 0, 0, 0.05),
+      0 4px 42px 0 rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    pointer-events: none;
+    /* Default rule controls the LEAVE state: no delay, so hiding plays
+       immediately. The move lanes are always live. */
+    transition:
+      opacity   var(--tt-out-dur) var(--tt-out-ease),
+      scale     var(--tt-out-dur) var(--tt-out-ease),
+      translate var(--tt-move-dur) var(--tt-move-ease),
+      width     var(--tt-move-dur) var(--tt-move-ease);
+  }
+  /* The appear delay belongs ONLY to the show rule, so hiding snaps it
+     back to 0. A retarget while showing carries no delay at all. */
+  .t-tt[data-show="true"] {
+    opacity: 1;
+    scale: 1;
+    transition:
+      opacity   var(--tt-in-dur) var(--tt-in-ease) var(--tt-delay),
+      scale     var(--tt-in-dur) var(--tt-in-ease) var(--tt-delay),
+      translate var(--tt-move-dur) var(--tt-move-ease),
+      width     var(--tt-move-dur) var(--tt-move-ease);
+  }
+  .t-tt-text { white-space: nowrap; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-tt { transition: none !important; }
+  }
+
+  /* 18-texts-reveal：首頁大標題逐行浮現 */
+  .t-stagger-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(var(--stagger-distance));
+    filter: blur(var(--stagger-blur));
+    transition:
+      opacity   var(--stagger-dur) var(--stagger-ease),
+      transform var(--stagger-dur) var(--stagger-ease),
+      filter    var(--stagger-dur) var(--stagger-ease);
+    will-change: transform, opacity, filter;
+  }
+  .t-stagger-line--2 { transition-delay: var(--stagger-stagger); }
+  .t-stagger-line--3 { transition-delay: calc(var(--stagger-stagger) * 2); }
+
+  .t-stagger.is-shown .t-stagger-line {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+  .t-stagger.is-hiding .t-stagger-line {
+    opacity: 0;
+    transform: translateY(0);
+    filter: blur(0);
+    transition:
+      opacity 200ms ease,
+      transform 0s linear,
+      filter 0s linear;
+    transition-delay: 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-stagger-line { transition: none !important; }
+  }
+}
